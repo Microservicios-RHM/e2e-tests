@@ -1,0 +1,21 @@
+{
+  "name": "e2e-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Suite BDD de extremo a extremo de la plataforma RHM (Gherkin en español + Cucumber.js)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "pretest": "node -e \"const fs=require('node:fs');fs.mkdirSync('reports',{recursive:true});for(const f of fs.readdirSync('reports'))fs.rmSync('reports/'+f,{recursive:true,force:true})\"",
+    "test": "cucumber-js",
+    "test:smoke": "cucumber-js --tags @humo",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.2.1",
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2"
+  }
+}

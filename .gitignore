@@ -1,0 +1,4 @@
+node_modules/
+# Reportes generados por cada ejecución: se generan, no se versionan.
+reports/
+.env

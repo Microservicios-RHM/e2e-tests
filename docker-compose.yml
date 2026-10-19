@@ -1,0 +1,29 @@
+# Ejecuta la suite BDD como contenedor, sin instalar Node localmente. Se une a la red del stack que
+# levanta rhm-database-infrastructure, así que primero hay que tener el sistema arriba:
+#
+#   cd ../rhm-database-infrastructure && docker compose up --build -d
+#   cd ../e2e-tests && docker compose run --rm --build bdd-tests
+#
+# `docker compose run` devuelve el código de salida de la suite (distinto de cero si algo falla).
+name: rhm-e2e-tests
+
+services:
+  bdd-tests:
+    build: .
+    environment:
+      BASE_URL: ${BASE_URL:-http://api-gateway:8080}
+      E2E_ADMIN_USERNAME: ${E2E_ADMIN_USERNAME:-admin}
+      E2E_ADMIN_PASSWORD: ${E2E_ADMIN_PASSWORD:-change_admin_password}
+      E2E_USER_PASSWORD: ${E2E_USER_PASSWORD:-Clave2026segura}
+      E2E_POLL_MAX_ATTEMPTS: ${E2E_POLL_MAX_ATTEMPTS:-15}
+      E2E_POLL_INTERVAL_MS: ${E2E_POLL_INTERVAL_MS:-2000}
+    volumes:
+      # Los reportes deben sobrevivir al contenedor: Jenkins los publica desde e2e-tests/reports.
+      - ./reports:/app/reports
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    name: ${E2E_NETWORK:-microservices-network}
+    external: true
