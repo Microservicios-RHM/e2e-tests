@@ -65,6 +65,7 @@ export class RhmWorld extends World {
   lastResponse: HttpResponse | null = null;
 
   employee: TestEmployee | null = null;
+  otherEmployee: TestEmployee | null = null;
   activationToken: string | null = null;
   recoveryToken: string | null = null;
   vacationId: string | null = null;
