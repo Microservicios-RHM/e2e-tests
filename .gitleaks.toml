@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Contraseña ficticia de usuario creada exclusivamente para escenarios E2E"
+regexes = ['''^Clave2026segura$''']
